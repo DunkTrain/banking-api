@@ -1,0 +1,22 @@
+databaseChangeLog:
+  - changeSet:
+      id: seed-accounts-data
+      author: dmitry
+      changes:
+        - insert:
+            schemaName: banking
+            tableName: accounts
+            columns:
+              - column: { name: id, valueNumeric: 1 }
+              - column: { name: user_id, valueNumeric: 1 }
+              - column: { name: balance, valueNumeric: 1000.00 }
+              - column: { name: initial_balance, valueNumeric: 1000.00 }
+
+        - insert:
+            schemaName: banking
+            tableName: accounts
+            columns:
+              - column: { name: id, valueNumeric: 2 }
+              - column: { name: user_id, valueNumeric: 2 }
+              - column: { name: balance, valueNumeric: 500.00 }
+              - column: { name: initial_balance, valueNumeric: 500.00 }
