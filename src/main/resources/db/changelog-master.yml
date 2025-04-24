@@ -8,9 +8,25 @@ databaseChangeLog:
   - include:
       file: db/v1/users/012_create_phones_table.yml
   - include:
+      file: db/v1/users/013_create_users_sequence.yml
+  - include:
+      file: db/v1/users/014_alter_users_id_sequence.yml
+  - include:
+      file: db/v1/users/015_create_emails_sequence.yml
+  - include:
+      file: db/v1/users/016_alter_emails_id_to_sequence.yml
+  - include:
+      file: db/v1/users/017_create_phones_sequence.yml
+  - include:
+      file: db/v1/users/018_alter_phones_id_to_sequence.yml
+  - include:
       file: db/v1/accounts/020_create_accounts_table.yml
   - include:
       file: db/v1/accounts/021_seed_accounts_data.yml
+  - include:
+      file: db/v1/accounts/022_create_accounts_sequence.yml
+  - include:
+      file: db/v1/accounts/023_alter_accounts_id_to_sequence.yml
   - include:
       file: db/v1/transfers/030_create_transfers_table.yml
   - include:

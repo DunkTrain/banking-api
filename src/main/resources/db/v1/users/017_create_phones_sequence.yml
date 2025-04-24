@@ -1,0 +1,10 @@
+databaseChangeLog:
+  - changeSet:
+      id: 017-create-phones-sequence
+      author: dmitry
+      changes:
+        - createSequence:
+            schemaName: banking
+            sequenceName: seq_phones
+            startValue: 1000
+            incrementBy: 50

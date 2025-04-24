@@ -1,0 +1,10 @@
+databaseChangeLog:
+  - changeSet:
+      id: 022-create-accounts-sequence
+      author: dmitry
+      changes:
+        - createSequence:
+            schemaName: banking
+            sequenceName: seq_accounts
+            startValue: 1000
+            incrementBy: 50

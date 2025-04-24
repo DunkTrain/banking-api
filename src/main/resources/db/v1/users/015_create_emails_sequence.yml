@@ -1,0 +1,10 @@
+databaseChangeLog:
+  - changeSet:
+      id: 015-create-emails-sequence
+      author: dmitry
+      changes:
+        - createSequence:
+            schemaName: banking
+            sequenceName: seq_emails
+            startValue: 1000
+            incrementBy: 50

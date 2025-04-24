@@ -41,4 +41,6 @@ public interface UserRepository extends JpaRepository<Users, Long> {
     @Override
     @EntityGraph(attributePaths = { "emails", "phones", "account" })
     Optional<Users> findById(@NonNull Long id);
+
+    // TODO: Добавить email для аутентификации
 }

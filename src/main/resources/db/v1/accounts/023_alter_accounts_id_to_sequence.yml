@@ -1,0 +1,15 @@
+databaseChangeLog:
+  - changeSet:
+      id: 023-alter-accounts-id-to-sequence
+      author: dmitry
+      changes:
+        - sql:
+            dbms: postgresql
+            splitStatements: false
+            sql: ALTER TABLE banking.accounts ALTER COLUMN id DROP IDENTITY IF EXISTS;
+
+        - addDefaultValue:
+            schemaName: banking
+            tableName: accounts
+            columnName: id
+            defaultValueComputed: "nextval('banking.seq_accounts')"

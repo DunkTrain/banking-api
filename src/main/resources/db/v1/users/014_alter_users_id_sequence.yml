@@ -1,0 +1,15 @@
+databaseChangeLog:
+  - changeSet:
+      id: 014-alter-users-id-sequence
+      author: dmitry
+      changes:
+        - sql:
+            dbms: postgresql
+            splitStatements: false
+            sql: ALTER TABLE banking.users ALTER COLUMN id DROP IDENTITY IF EXISTS;
+
+        - addDefaultValue:
+            schemaName: banking
+            tableName: users
+            columnName: id
+            defaultValueComputed: "nextval('banking.seq_users')"
