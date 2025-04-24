@@ -1,0 +1,15 @@
+databaseChangeLog:
+  - changeSet:
+      id: 018-alter-phones-id-to-sequence
+      author: dmitry
+      changes:
+        - sql:
+            dbms: postgresql
+            splitStatements: false
+            sql: ALTER TABLE banking.phones ALTER COLUMN id DROP IDENTITY IF EXISTS;
+
+        - addDefaultValue:
+            schemaName: banking
+            tableName: phones
+            columnName: id
+            defaultValueComputed: "nextval('banking.seq_phones')"

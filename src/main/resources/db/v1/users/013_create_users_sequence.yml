@@ -1,0 +1,10 @@
+databaseChangeLog:
+  - changeSet:
+      id: 013-create-users-sequence
+      author: dmitry
+      changes:
+        - createSequence:
+            sequenceName: seq_users
+            schemaName: banking
+            startValue: 1000
+            incrementBy: 50

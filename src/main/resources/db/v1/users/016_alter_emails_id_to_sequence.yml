@@ -1,0 +1,15 @@
+databaseChangeLog:
+  - changeSet:
+      id: 016-alter-emails-id-to-sequence
+      author: dmitry
+      changes:
+        - sql:
+            dbms: postgresql
+            splitStatements: false
+            sql: ALTER TABLE banking.emails ALTER COLUMN id DROP IDENTITY IF EXISTS;
+
+        - addDefaultValue:
+            schemaName: banking
+            tableName: emails
+            columnName: id
+            defaultValueComputed: "nextval('banking.seq_emails')"
