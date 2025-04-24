@@ -1,0 +1,6 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-banking-schema
+      author: dmitry
+      changes:
+        - sql: CREATE SCHEMA IF NOT EXISTS banking;

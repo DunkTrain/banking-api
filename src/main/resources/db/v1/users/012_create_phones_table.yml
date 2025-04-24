@@ -1,0 +1,38 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-phones-table
+      author: dmitry
+      changes:
+        - createTable:
+            schemaName: banking
+            tableName: phones
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: user_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: phone
+                  type: VARCHAR(13)
+                  constraints:
+                    nullable: false
+        - addUniqueConstraint:
+            tableName: phones
+            schemaName: banking
+            columnNames: phone
+            constraintName: uq_phones_phone
+        - addForeignKeyConstraint:
+            baseTableName: phones
+            baseTableSchemaName: banking
+            baseColumnNames: user_id
+            referencedTableName: users
+            referencedTableSchemaName: banking
+            referencedColumnNames: id
+            constraintName: fk_phones_user

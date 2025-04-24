@@ -1,0 +1,78 @@
+databaseChangeLog:
+  - changeSet:
+      id: seed-users-and-contacts
+      author: dmitry
+      changes:
+        - insert:
+            tableName: users
+            schemaName: banking
+            columns:
+              - column: { name: id, valueNumeric: 1 }
+              - column: { name: name, value: 'Ivan Ivanov' }
+              - column: { name: date_of_birth, valueDate: '1990-01-01' }
+              - column: { name: password, value: '$2a$10$5vAfEtRKi1yUoz6QMX3eSuNcwUYoFtp1t1TbzPxQvWzj9JXEyM1Wa' }
+
+        - insert:
+            tableName: users
+            schemaName: banking
+            columns:
+              - column: { name: id, valueNumeric: 2 }
+              - column: { name: name, value: 'Petr Petrov' }
+              - column: { name: date_of_birth, valueDate: '1985-05-15' }
+              - column: { name: password, value: '$2a$10$5vAfEtRKi1yUoz6QMX3eSuNcwUYoFtp1t1TbzPxQvWzj9JXEyM1Wa' }
+
+        - insert:
+            tableName: emails
+            schemaName: banking
+            columns:
+              - column: { name: id, valueNumeric: 1 }
+              - column: { name: user_id, valueNumeric: 1 }
+              - column: { name: email, value: 'ivan@mail.com' }
+
+        - insert:
+            tableName: emails
+            schemaName: banking
+            columns:
+              - column: { name: id, valueNumeric: 2 }
+              - column: { name: user_id, valueNumeric: 1 }
+              - column: { name: email, value: 'ivan.ivanov@work.com' }
+
+        - insert:
+            tableName: emails
+            schemaName: banking
+            columns:
+              - column: { name: id, valueNumeric: 3 }
+              - column: { name: user_id, valueNumeric: 2 }
+              - column: { name: email, value: 'petr@mail.com' }
+
+        - insert:
+            tableName: emails
+            schemaName: banking
+            columns:
+              - column: { name: id, valueNumeric: 4 }
+              - column: { name: user_id, valueNumeric: 2 }
+              - column: { name: email, value: 'petrov.p@work.org' }
+
+        - insert:
+            tableName: phones
+            schemaName: banking
+            columns:
+              - column: { name: id, valueNumeric: 1 }
+              - column: { name: user_id, valueNumeric: 1 }
+              - column: { name: phone, value: '79201112233' }
+
+        - insert:
+            tableName: phones
+            schemaName: banking
+            columns:
+              - column: { name: id, valueNumeric: 2 }
+              - column: { name: user_id, valueNumeric: 2 }
+              - column: { name: phone, value: '79209998877' }
+
+        - insert:
+            tableName: phones
+            schemaName: banking
+            columns:
+              - column: { name: id, valueNumeric: 3 }
+              - column: { name: user_id, valueNumeric: 2 }
+              - column: { name: phone, value: '79209998811' }

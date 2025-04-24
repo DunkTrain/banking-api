@@ -1,0 +1,50 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-transfers-table
+      author: dmitry
+      changes:
+        - createTable:
+            schemaName: banking
+            tableName: transfers
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: from_user_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: to_user_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: amount
+                  type: DECIMAL(19, 2)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+        - addForeignKeyConstraint:
+            baseTableName: transfers
+            baseTableSchemaName: banking
+            baseColumnNames: from_user_id
+            referencedTableName: users
+            referencedTableSchemaName: banking
+            referencedColumnNames: id
+            constraintName: fk_transfers_from_user
+        - addForeignKeyConstraint:
+            baseTableName: transfers
+            baseTableSchemaName: banking
+            baseColumnNames: to_user_id
+            referencedTableName: users
+            referencedTableSchemaName: banking
+            referencedColumnNames: id
+            constraintName: fk_transfers_to_user

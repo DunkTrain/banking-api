@@ -1,0 +1,15 @@
+databaseChangeLog:
+  - include:
+      file: db/v1/_common/001_create_schema.yml
+  - include:
+      file: db/v1/users/010_create_users_table.yml
+  - include:
+      file: db/v1/users/011_create_emails_table.yml
+  - include:
+      file: db/v1/users/012_create_phones_table.yml
+  - include:
+      file: db/v1/accounts/020_create_accounts_table.yml
+  - include:
+      file: db/v1/transfers/030_create_transfers_table.yml
+  - include:
+      file: db/v1/users/019_seed_users_data.yml
