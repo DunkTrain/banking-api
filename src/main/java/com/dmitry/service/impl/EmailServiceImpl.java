@@ -68,9 +68,9 @@ public class EmailServiceImpl implements EmailService {
             throw new ForbiddenOperationException("Вы не можете удалить чужой email");
         }
 
-        Users user = emailEntity.getUser();
+        long emailCount = emailRepository.countByUserId(userId);
 
-        if (user.getEmails().size() <= 1) {
+        if (emailCount <= 1) {
             throw new ForbiddenOperationException(
                     "Нельзя удалить последний email: у пользователя должен быть хотя бы один email"
             );

@@ -68,9 +68,9 @@ public class PhoneServiceImpl implements PhoneService {
             throw new ForbiddenOperationException("Вы не можете удалить чужой телефон");
         }
 
-        Users user = phoneEntity.getUser();
+        long phoneCount = phoneRepository.countByUserId(userId);
 
-        if (user.getPhones().size() <= 1) {
+        if (phoneCount <= 1) {
             throw new ForbiddenOperationException(
                     "Нельзя удалить последний телефон: у пользователя должен быть хотя бы один телефон"
             );

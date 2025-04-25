@@ -28,4 +28,12 @@ public interface EmailRepository extends JpaRepository<Email, Long> {
      * @return {@code true}, если email существует, иначе {@code false}
      */
     boolean existsByEmail(String email);
+
+    /**
+     * Подсчитывает количество email-адресов, привязанных к указанному пользователю.
+     *
+     * @param userId идентификатор пользователя
+     * @return количество email-адресов, связанных с пользователем
+     */
+    long countByUserId(Long userId);
 }

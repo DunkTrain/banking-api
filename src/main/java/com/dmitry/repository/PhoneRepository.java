@@ -28,4 +28,12 @@ public interface PhoneRepository extends JpaRepository<Phone, Long> {
      * @return {@link Optional} с найденным объектом, либо пустой, если не найден
      */
     Optional<Phone> findByPhone(String phone);
+
+    /**
+     * Подсчитывает количество телефонных номеров, привязанных к указанному пользователю.
+     *
+     * @param userId идентификатор пользователя
+     * @return количество телефонных номеров, связанных с пользователем
+     */
+    long countByUserId(Long userId);
 }
