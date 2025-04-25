@@ -28,7 +28,7 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
      * @return {@link Optional} с найденным счетом, либо пустой, если не найден
      */
     @Lock(LockModeType.PESSIMISTIC_WRITE)
-    Optional<Account> findByUserId(@NonNull Long userId);
+    Optional<Account> findByUserId(Long userId);
 
     /**
      * Проверяет наличие счета, связанного с указанным userId.
@@ -39,5 +39,5 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
      * @param userId идентификатор пользователя
      * @return {@code true}, если счет существует, иначе {@code false}
      */
-    boolean existsByUserId(@NonNull Long userId);
+    boolean existsByUserId(Long userId);
 }
