@@ -11,6 +11,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -20,6 +21,7 @@ import java.util.List;
 @AllArgsConstructor
 public class UsersDTO {
 
+    @Schema(description = "ID пользователя")
     private Long id;
 
     @Schema(description = "Имя пользователя. Обязательно. Максимум 500 символов.")
@@ -40,4 +42,8 @@ public class UsersDTO {
     @Schema(description = "Список телефонов пользователя. Должен содержать хотя бы один элемент.")
     @NotNull(message = "Телефоны обязательны")
     private List<PhoneDTO> phones;
+
+    @Schema(description = "Баланс аккаунта пользователя, отображается в рублях.")
+    @NotNull(message = "Баланс аккаунта обязателен")
+    private BigDecimal balance;
 }
