@@ -1,34 +1,38 @@
 package com.dmitry.mapper;
 
-import com.dmitry.dto.EmailDTO;
-import com.dmitry.dto.PhoneDTO;
-import com.dmitry.dto.UsersDTO;
+import com.dmitry.dto.responce.EmailResponseDto;
+import com.dmitry.dto.responce.PhoneResponseDto;
+import com.dmitry.dto.responce.UserResponseDto;
 import com.dmitry.entity.Users;
 import org.springframework.stereotype.Component;
 
 /**
- * Компонент для преобразования сущности {@link Users} в DTO {@link UsersDTO}.
- * <p>
- * Используется в сервисе для возврата профиля пользователя.
+ * Компонент для преобразования сущности {@link Users} в DTO {@link UserResponseDto}.
  */
 @Component
 public class UserMapper {
 
-    public UsersDTO toDto(Users user) {
+    /**
+     * Преобразует пользователя в DTO для получения профиля
+     *
+     * @param user сущность пользователя
+     * @return DTO для профиля
+     */
+    public UserResponseDto toDto(Users user) {
         if (user == null) return null;
 
-        UsersDTO dto = new UsersDTO();
+        UserResponseDto dto = new UserResponseDto();
         dto.setId(user.getId());
         dto.setName(user.getName());
         dto.setDateOfBirth(user.getDateOfBirth());
         dto.setEmails(
                 user.getEmails().stream()
-                        .map(email -> new EmailDTO(email.getEmail()))
+                        .map(email -> new EmailResponseDto(email.getEmail()))
                         .toList()
         );
         dto.setPhones(
                 user.getPhones().stream()
-                        .map(phone -> new PhoneDTO(phone.getPhone()))
+                        .map(phone -> new PhoneResponseDto(phone.getPhone()))
                         .toList()
         );
         dto.setBalance(user.getAccount().getBalance());

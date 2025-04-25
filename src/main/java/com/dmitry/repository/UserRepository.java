@@ -3,6 +3,7 @@ package com.dmitry.repository;
 import com.dmitry.entity.Users;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 import java.util.Optional;
 
@@ -12,7 +13,7 @@ import java.util.Optional;
  * Обеспечивает доступ к пользовательским данным, включая связанные сущности:
  * email-адреса, номера телефонов и счетов.
  */
-public interface UserRepository extends JpaRepository<Users, Long> {
+public interface UserRepository extends JpaRepository<Users, Long>, JpaSpecificationExecutor<Users> {
 
     /**
      * Проверяет наличие пользователя, связанного с указанным email.
