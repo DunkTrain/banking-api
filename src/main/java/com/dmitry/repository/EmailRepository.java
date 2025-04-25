@@ -2,7 +2,6 @@ package com.dmitry.repository;
 
 import com.dmitry.entity.Email;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.lang.NonNull;
 
 import java.util.Optional;
 
@@ -20,7 +19,7 @@ public interface EmailRepository extends JpaRepository<Email, Long> {
      * @param email значение email-адреса
      * @return {@link Optional} с найденным email, либо пустой, если не найден
      */
-    Optional<Email> findByEmail(@NonNull String email);
+    Optional<Email> findByEmail(String email);
 
     /**
      * Проверяет наличие email-адреса в базе данных.
@@ -28,5 +27,5 @@ public interface EmailRepository extends JpaRepository<Email, Long> {
      * @param email значение email-адреса
      * @return {@code true}, если email существует, иначе {@code false}
      */
-    boolean existsByEmail(@NonNull String email);
+    boolean existsByEmail(String email);
 }

@@ -4,7 +4,6 @@ import com.dmitry.entity.Account;
 import jakarta.persistence.LockModeType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Lock;
-import org.springframework.lang.NonNull;
 
 import java.util.Optional;
 
