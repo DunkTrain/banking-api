@@ -4,8 +4,10 @@ import com.dmitry.entity.Account;
 import jakarta.persistence.LockModeType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Lock;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.Optional;
+import java.util.stream.Stream;
 
 /**
  * Репозиторий для работы с сущностью {@link Account}
@@ -40,4 +42,15 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
      * @return {@code true}, если счет существует, иначе {@code false}
      */
     boolean existsByUserId(Long userId);
+
+    /**
+     * Возвращает поток аккаунтов, баланс которых меньше допустимого максимума (207% от начального депозита).
+     * <p>
+     * Используется в планировщике начисления процентов для выбора аккаунтов,
+     * на которые нужно начислить проценты.
+     *
+     * @return поток аккаунтов, требующих начисления процентов
+     */
+    @Query("SELECT a FROM Account a WHERE a.balance < a.initBalance * 2.07")
+    Stream<Account> streamAllForAccrual();
 }

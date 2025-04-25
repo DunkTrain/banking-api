@@ -2,6 +2,8 @@ databaseChangeLog:
   - include:
       file: db/v1/_common/001_create_schema.yml
   - include:
+      file: db/v1/_common/001-create-shedlock-table.yml
+  - include:
       file: db/v1/users/010_create_users_table.yml
   - include:
       file: db/v1/users/011_create_emails_table.yml
