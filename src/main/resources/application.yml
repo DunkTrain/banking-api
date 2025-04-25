@@ -24,3 +24,7 @@ spring:
     liquibase-schema: public
     default-schema: banking
     drop-first: false
+
+  interest:
+    percent: 0.10
+    max-multiplier: 2.07

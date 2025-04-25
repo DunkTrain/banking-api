@@ -7,19 +7,26 @@ import jakarta.persistence.criteria.Predicate;
 import org.springframework.data.jpa.domain.Specification;
 
 /**
- * Класс со спецификацией поиска пользователей по различным фильтрам.
+ * Спецификация для поиска пользователей по заданным фильтрам.
  * <p>
- * Используется Spring Data JPA Specification API для построения динамических запросов.
- * Поддерживаются фильтры по имени (начало строки), email, телефону и дате рождения.
- * Связанные сущности (emails, phones, account) подгружаются через fetch join.
+ * Используется для построения динамических запросов в Spring Data JPA.
+ * Позволяет фильтровать пользователей по:
+ * <ul>
+ *     <li>имени (начинается с...)</li>
+ *     <li>email (точное совпадение)</li>
+ *     <li>телефону (точное совпадение)</li>
+ *     <li>дате рождения (позже указанной)</li>
+ * </ul>
+ * Также включает загрузку связанных сущностей (emails, phones, account) через {@code fetch join},
+ * чтобы избежать проблемы N+1.
  */
 public class UserSpecification {
 
     /**
-     * Строит спецификацию поиска по фильтрам.
+     * Возвращает спецификацию фильтрации пользователей на основе переданных критериев.
      *
-     * @param criteria DTO с фильтрами поиска
-     * @return спецификация для репозитория
+     * @param criteria параметры фильтрации, полученные из запроса
+     * @return {@link Specification} для применения в {@code UserRepository.findAll(...)}
      */
     public static Specification<Users> withFilters(UserSearchCriteriaDto criteria) {
         return (root, query, cb) -> {
