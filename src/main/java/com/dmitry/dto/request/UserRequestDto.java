@@ -1,4 +1,4 @@
-package com.dmitry.dto;
+package com.dmitry.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -6,7 +6,6 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,8 +17,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
-public class UsersDTO {
+public class UserRequestDto {
 
     @Schema(description = "ID пользователя")
     private Long id;
@@ -37,13 +35,14 @@ public class UsersDTO {
 
     @Schema(description = "Список email-адресов пользователя. Должен содержать хотя бы один элемент.")
     @NotNull(message = "Email-адреса обязательны")
-    private List<EmailDTO> emails;
+    private List<EmailRequestDto> emails;
 
     @Schema(description = "Список телефонов пользователя. Должен содержать хотя бы один элемент.")
     @NotNull(message = "Телефоны обязательны")
-    private List<PhoneDTO> phones;
+    private List<PhoneRequestDto> phones;
 
     @Schema(description = "Баланс аккаунта пользователя, отображается в рублях.")
     @NotNull(message = "Баланс аккаунта обязателен")
     private BigDecimal balance;
 }
+

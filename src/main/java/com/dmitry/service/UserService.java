@@ -1,6 +1,9 @@
 package com.dmitry.service;
 
-import com.dmitry.dto.UsersDTO;
+import com.dmitry.dto.UserSearchCriteriaDto;
+import com.dmitry.dto.responce.UserResponseDto;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 /**
  * Сервис для работы с пользователями.
@@ -15,5 +18,14 @@ public interface UserService {
      * @param userId идентификатор пользователя
      * @return DTO с данными пользователя
      */
-    UsersDTO getProfile(Long userId);
+    UserResponseDto getProfile(Long userId);
+
+    /**
+     * Поиск пользователей по фильтрам и пагинации.
+     *
+     * @param criteria параметры фильтрации
+     * @param pageable параметры пагинации
+     * @return страница пользователей, удовлетворяющих условиям
+     */
+    Page<UserResponseDto> searchUsers(UserSearchCriteriaDto criteria, Pageable pageable);
 }
