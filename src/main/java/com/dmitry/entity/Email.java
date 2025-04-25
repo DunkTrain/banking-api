@@ -44,4 +44,22 @@ public class Email {
     @JoinColumn(name = "user_id", nullable = false,
             foreignKey = @ForeignKey(name = "fk_emails_user"))
     private Users user;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Email email1 = (Email) o;
+        return id != null && id.equals(email1.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "Email{id=" + id + ", email='" + email + "'}";
+    }
 }

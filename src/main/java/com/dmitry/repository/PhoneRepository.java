@@ -2,7 +2,6 @@ package com.dmitry.repository;
 
 import com.dmitry.entity.Phone;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.lang.NonNull;
 
 import java.util.Optional;
 
@@ -20,7 +19,7 @@ public interface PhoneRepository extends JpaRepository<Phone, Long> {
      * @param phone значение телефонного номера
      * @return {@code true}, если номер существует, иначе {@code false}
      */
-    boolean existsByPhone(@NonNull String phone);
+    boolean existsByPhone(String phone);
 
     /**
      * Возвращает объект телефона по его значению.
@@ -28,5 +27,13 @@ public interface PhoneRepository extends JpaRepository<Phone, Long> {
      * @param phone значение телефонного номера
      * @return {@link Optional} с найденным объектом, либо пустой, если не найден
      */
-    Optional<Phone> findByPhone(@NonNull String phone);
+    Optional<Phone> findByPhone(String phone);
+
+    /**
+     * Подсчитывает количество телефонных номеров, привязанных к указанному пользователю.
+     *
+     * @param userId идентификатор пользователя
+     * @return количество телефонных номеров, связанных с пользователем
+     */
+    long countByUserId(Long userId);
 }

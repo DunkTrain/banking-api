@@ -44,4 +44,22 @@ public class Phone {
 
     @Column(nullable = false)
     private String phone;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Phone phone1 = (Phone) o;
+        return id != null && id.equals(phone1.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "Phone{id=" + id + ", phone='" + phone + "'}";
+    }
 }

@@ -3,7 +3,6 @@ package com.dmitry.repository;
 import com.dmitry.entity.Users;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.lang.NonNull;
 
 import java.util.Optional;
 
@@ -21,7 +20,7 @@ public interface UserRepository extends JpaRepository<Users, Long> {
      * @param email значение email-адреса
      * @return {@code true}, если такой пользователь существует, иначе {@code false}
      */
-    boolean existsByEmails_Email(@NonNull String email);
+    boolean existsByEmails_Email(String email);
 
     /**
      * Проверяет наличие пользователя, связанного с указанным телефоном.
@@ -29,7 +28,7 @@ public interface UserRepository extends JpaRepository<Users, Long> {
      * @param phone значение телефонного номера
      * @return {@code true}, если такой пользователь существует, иначе {@code false}
      */
-    boolean existsByPhones_Phone(@NonNull String phone);
+    boolean existsByPhones_Phone(String phone);
 
     /**
      * Возвращает пользователя по идентификатору вместе с загруженными
@@ -40,7 +39,7 @@ public interface UserRepository extends JpaRepository<Users, Long> {
      */
     @Override
     @EntityGraph(attributePaths = { "emails", "phones", "account" })
-    Optional<Users> findById(@NonNull Long id);
+    Optional<Users> findById(Long id);
 
     // TODO: Добавить email для аутентификации
 }
