@@ -1,6 +1,6 @@
 package com.dmitry.spec;
 
-import com.dmitry.dto.UserSearchCriteriaDto;
+import com.dmitry.dto.responce.UserSearchCriteriaDto;
 import com.dmitry.entity.Users;
 import jakarta.persistence.criteria.JoinType;
 import jakarta.persistence.criteria.Predicate;
@@ -10,32 +10,21 @@ import org.springframework.data.jpa.domain.Specification;
  * Спецификация для поиска пользователей по заданным фильтрам.
  * <p>
  * Используется для построения динамических запросов в Spring Data JPA.
- * Позволяет фильтровать пользователей по:
- * <ul>
- *     <li>имени (начинается с...)</li>
- *     <li>email (точное совпадение)</li>
- *     <li>телефону (точное совпадение)</li>
- *     <li>дате рождения (позже указанной)</li>
- * </ul>
- * Также включает загрузку связанных сущностей (emails, phones, account) через {@code fetch join},
- * чтобы избежать проблемы N+1.
+ * Отвечает только за условия фильтрации, не загружает связанные сущности.
  */
 public class UserSpecification {
 
     /**
-     * Возвращает спецификацию фильтрации пользователей на основе переданных критериев.
+     * Строит спецификацию поиска пользователей на основе переданных критериев.
      *
-     * @param criteria параметры фильтрации, полученные из запроса
-     * @return {@link Specification} для применения в {@code UserRepository.findAll(...)}
+     * @param criteria параметры фильтрации
+     * @return спецификация для применения в репозитории
      */
     public static Specification<Users> withFilters(UserSearchCriteriaDto criteria) {
         return (root, query, cb) -> {
-            root.fetch("emails", JoinType.LEFT);
-            root.fetch("phones", JoinType.LEFT);
-            root.fetch("account", JoinType.LEFT);
-            //noinspection DataFlowIssue
-            query.distinct(true);
-
+            if(query != null) {
+                query.distinct(true);
+            }
             Predicate predicate = cb.conjunction();
 
             if (criteria.getName() != null && !criteria.getName().isBlank()) {
