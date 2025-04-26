@@ -31,9 +31,9 @@ public class TransferServiceImpl implements TransferService {
     public void transfer(Long fromUserId, TransferRequestDto request) {
         validateTransferRequest(fromUserId, request);
 
-        AccountPair accounts = loadAccountsSafely(fromUserId, request.getToUserId());
-        processTransfer(accounts, request.getAmount());
-        saveTransferHistory(fromUserId, request.getToUserId(), request.getAmount());
+        AccountPair accounts = loadAccountsSafely(fromUserId, request.toUserId());
+        processTransfer(accounts, request.amount());
+        saveTransferHistory(fromUserId, request.toUserId(), request.amount());
     }
 
     /**
@@ -43,15 +43,15 @@ public class TransferServiceImpl implements TransferService {
      * @request данные запроса на перевод
      */
     private void validateTransferRequest(Long fromUserId, TransferRequestDto request) {
-        if (request.getToUserId() == null) {
+        if (request.toUserId() == null) {
             throw new IllegalArgumentException("ID получателя не может быть пустым");
         }
 
-        if (fromUserId.equals(request.getToUserId())) {
+        if (fromUserId.equals(request.toUserId())) {
             throw new IllegalArgumentException("Нельзя перевести деньги самому себе");
         }
 
-        BigDecimal amount = request.getAmount();
+        BigDecimal amount = request.amount();
         if (amount == null || amount.compareTo(BigDecimal.ZERO) <= 0) {
             throw new IllegalArgumentException("Сумма перевода должна быть больше нуля");
         }
