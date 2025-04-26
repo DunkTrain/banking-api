@@ -1,0 +1,10 @@
+databaseChangeLog:
+  - changeSet:
+      id: 031_create_transfers_sequence
+      author: dmitry
+      changes:
+        - createSequence:
+            sequenceName: seq_transfers
+            schemaName: banking
+            startValue: 1000
+            incrementBy: 50

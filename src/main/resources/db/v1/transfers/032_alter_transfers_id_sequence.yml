@@ -1,0 +1,15 @@
+databaseChangeLog:
+  - changeSet:
+      id: 032_alter_transfers_id_sequence.yml
+      author: dmitry
+      changes:
+        - sql:
+            dbms: postgresql
+            splitStatements: false
+            sql: ALTER TABLE banking.transfers ALTER COLUMN id DROP IDENTITY OF EXISTS;
+
+        - addDefaultValue:
+            schemaName: banking
+            tableName: transfers
+            columnName: id
+            defaultValueComputed: "nextval('banking.seq_transfers')"
