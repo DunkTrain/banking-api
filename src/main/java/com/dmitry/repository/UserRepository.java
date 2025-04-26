@@ -53,7 +53,7 @@ public interface UserRepository extends JpaRepository<Users, Long>, JpaSpecifica
      * @param pageable параметры пагинации
      * @return страница пользователей
      */
-    @EntityGraph(attributePaths = { "emails", "phones", "account" })
+    @EntityGraph(attributePaths = {"account"})
     Page<Users> findAll(@Nullable Specification<Users> spec, Pageable pageable);
 
     // TODO: Добавить email для аутентификации
