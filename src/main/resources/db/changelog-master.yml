@@ -22,6 +22,8 @@ databaseChangeLog:
   - include:
       file: db/v1/users/018_alter_phones_id_to_sequence.yml
   - include:
+      file: db/v1/users/019_seed_users_data.yml
+  - include:
       file: db/v1/accounts/020_create_accounts_table.yml
   - include:
       file: db/v1/accounts/021_seed_accounts_data.yml
@@ -35,5 +37,3 @@ databaseChangeLog:
       file: db/v1/transfers/031_create_transfers_sequence.yml
   - include:
       file: db/v1/transfers/032_alter_transfers_id_sequence.yml
-  - include:
-      file: db/v1/users/019_seed_users_data.yml

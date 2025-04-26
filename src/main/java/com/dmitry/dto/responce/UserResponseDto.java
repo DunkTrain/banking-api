@@ -8,7 +8,7 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.List;
+import java.util.Set;
 
 /**
  * DTO для отображения полной информации о пользователе.
@@ -29,10 +29,10 @@ public class UserResponseDto {
     private LocalDate dateOfBirth;
 
     @Schema(description = "Список email-адресов пользователя")
-    private List<EmailResponseDto> emails;
+    private Set<EmailResponseDto> emails;
 
     @Schema(description = "Список телефонов пользователя")
-    private List<PhoneResponseDto> phones;
+    private Set<PhoneResponseDto> phones;
 
     @Schema(description = "Баланс аккаунта пользователя")
     private BigDecimal balance;

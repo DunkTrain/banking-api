@@ -12,7 +12,7 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -35,14 +35,13 @@ public class UserRequestDto {
 
     @Schema(description = "Список email-адресов пользователя. Должен содержать хотя бы один элемент.")
     @NotNull(message = "Email-адреса обязательны")
-    private List<EmailRequestDto> emails;
+    private Set<EmailRequestDto> emails;
 
     @Schema(description = "Список телефонов пользователя. Должен содержать хотя бы один элемент.")
     @NotNull(message = "Телефоны обязательны")
-    private List<PhoneRequestDto> phones;
+    private Set<PhoneRequestDto> phones;
 
     @Schema(description = "Баланс аккаунта пользователя, отображается в рублях.")
     @NotNull(message = "Баланс аккаунта обязателен")
     private BigDecimal balance;
 }
-

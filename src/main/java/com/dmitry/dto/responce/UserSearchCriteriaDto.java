@@ -1,6 +1,7 @@
-package com.dmitry.dto;
+package com.dmitry.dto.responce;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,6 +16,7 @@ import java.time.LocalDate;
  */
 @Getter
 @Setter
+@AllArgsConstructor
 public class UserSearchCriteriaDto {
 
     @Schema(description = "Фильтр по имени (поиск по началу имени)", example = "Алекс")

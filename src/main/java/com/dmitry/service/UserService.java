@@ -1,6 +1,6 @@
 package com.dmitry.service;
 
-import com.dmitry.dto.UserSearchCriteriaDto;
+import com.dmitry.dto.responce.UserSearchCriteriaDto;
 import com.dmitry.dto.responce.UserResponseDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
