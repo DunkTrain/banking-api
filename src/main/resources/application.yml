@@ -28,3 +28,10 @@ spring:
 interest:
   percent: 0.10
   max-multiplier: 2.07
+
+jwt:
+  secret: "dGhpcy1pcy1teS1zZWNyZXQta2V5LWZvci1iYW5raW5nLWFwaQ==" # для тестов
+  expiration: 3600000 # 1 час
+
+  # Команда генерации (Linux):
+  # openssl rand -base64 32
