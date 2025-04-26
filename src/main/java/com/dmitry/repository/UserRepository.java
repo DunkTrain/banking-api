@@ -56,5 +56,21 @@ public interface UserRepository extends JpaRepository<Users, Long>, JpaSpecifica
     @EntityGraph(attributePaths = {"account"})
     Page<Users> findAll(@Nullable Specification<Users> spec, Pageable pageable);
 
-    // TODO: Добавить email для аутентификации
+    /**
+     * Ищет пользователя по одному из email.
+     *
+     * @param email Email адрес пользователя
+     * @return найденный пользователь или пусто
+     */
+    @EntityGraph(attributePaths = {"emails", "phones", "account"})
+    Optional<Users> findByEmails_Email(String email);
+
+    /**
+     * Ищет пользователя по одному из телефонов.
+     *
+     * @param phone Телефонный номер пользователя
+     * @return найденный пользователь или пусто
+     */
+    @EntityGraph(attributePaths = {"emails", "phones", "account"})
+    Optional<Users> findByPhones_Phone(String phone);
 }
