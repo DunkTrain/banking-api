@@ -32,4 +32,8 @@ databaseChangeLog:
   - include:
       file: db/v1/transfers/030_create_transfers_table.yml
   - include:
+      file: db/v1/transfers/031_create_transfers_sequence.yml
+  - include:
+      file: db/v1/transfers/032_alter_transfers_id_sequence.yml
+  - include:
       file: db/v1/users/019_seed_users_data.yml
