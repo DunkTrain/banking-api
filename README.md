@@ -58,7 +58,7 @@ docker-compose up --build
 - Миграции базы данных через Liquibase
 - Поддержка пагинации и фильтрации пользователей
 - API-документация через Swagger UI: `http://localhost:8080/swagger-ui.html`
-- OpenAPI: http://localhost:8080/v3/api-docs
+- OpenAPI: `http://localhost:8080/v3/api-docs`
 
 ## Документация API (Postman)
 
