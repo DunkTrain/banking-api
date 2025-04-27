@@ -1,6 +1,6 @@
 package com.dmitry.dto.auth;
 
-import jakarta.validation.constraints.NotBlank;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,15 +10,16 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@Schema(description = "Данные для логина пользователя")
 public class LoginRequestDto {
 
-    @NotBlank(message = "Email обязателен")
+    @Schema(description = "Email пользователя", example = "example@mail.com")
     private String email;
 
-    @NotBlank(message = "Телефон обязателен")
+    @Schema(description = "Телефон пользователя", example = "79207865432")
     private String phone;
 
-    @NotBlank(message = "Пароль обязателен")
+    @Schema(description = "Пароль пользователя", example = "example123")
     @Size(min = 8, max = 500, message = "Пароль должен содержать от 8 до 500 символов")
     private String password;
 }

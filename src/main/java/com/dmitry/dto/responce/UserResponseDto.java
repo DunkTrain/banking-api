@@ -1,5 +1,6 @@
 package com.dmitry.dto.responce;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,6 +27,7 @@ public class UserResponseDto {
     private String name;
 
     @Schema(description = "Дата рождения пользователя")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy")
     private LocalDate dateOfBirth;
 
     @Schema(description = "Список email-адресов пользователя")
