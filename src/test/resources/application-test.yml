@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    url: jdbc:tc:postgresql:16.2-alpine:///testdb
+    username: test
+    password: test
+  jpa:
+    hibernate:
+      ddl-auto: validate
+
+# Отключаем Security для тестов
+security:
+  enabled: false

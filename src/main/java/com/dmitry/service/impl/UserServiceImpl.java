@@ -2,12 +2,10 @@ package com.dmitry.service.impl;
 
 import com.dmitry.dto.responce.UserSearchCriteriaDto;
 import com.dmitry.dto.responce.UserResponseDto;
-import com.dmitry.entity.Users;
 import com.dmitry.mapper.UserMapper;
 import com.dmitry.repository.UserRepository;
 import com.dmitry.service.UserService;
 import com.dmitry.spec.UserSpecification;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,15 +23,6 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
-
-    @Override
-    @Transactional(readOnly = true)
-    public UserResponseDto getProfile(Long userId) {
-        Users user = userRepository.findById(userId)
-                .orElseThrow(() -> new EntityNotFoundException("Пользователь не найден"));
-
-        return userMapper.toDto(user);
-    }
 
     @Override
     @Transactional(readOnly = true)

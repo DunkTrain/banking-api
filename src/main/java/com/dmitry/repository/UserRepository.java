@@ -20,22 +20,6 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<Users, Long>, JpaSpecificationExecutor<Users> {
 
     /**
-     * Проверяет наличие пользователя, связанного с указанным email.
-     *
-     * @param email значение email-адреса
-     * @return {@code true}, если такой пользователь существует, иначе {@code false}
-     */
-    boolean existsByEmails_Email(String email);
-
-    /**
-     * Проверяет наличие пользователя, связанного с указанным телефоном.
-     *
-     * @param phone значение телефонного номера
-     * @return {@code true}, если такой пользователь существует, иначе {@code false}
-     */
-    boolean existsByPhones_Phone(String phone);
-
-    /**
      * Возвращает пользователя по идентификатору вместе с загруженными
      * связанными сущностями: email, phone и account.
      *

@@ -3,8 +3,6 @@ package com.dmitry.repository;
 import com.dmitry.entity.Email;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.Optional;
-
 /**
  * Репозиторий для работы с сущностью {@link Email}
  * <p>
@@ -12,14 +10,6 @@ import java.util.Optional;
  * Используется для поиска и проверки уникальности email-адресов.
  */
 public interface EmailRepository extends JpaRepository<Email, Long> {
-
-    /**
-     * Возвращает email-объект, соответсвующий указанному значению.
-     *
-     * @param email значение email-адреса
-     * @return {@link Optional} с найденным email, либо пустой, если не найден
-     */
-    Optional<Email> findByEmail(String email);
 
     /**
      * Проверяет наличие email-адреса в базе данных.

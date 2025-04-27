@@ -13,14 +13,6 @@ import org.springframework.data.domain.Pageable;
 public interface UserService {
 
     /**
-     * Возвращает полную информацию о текущем пользователе по его идентификатору.
-     *
-     * @param userId идентификатор пользователя
-     * @return DTO с данными пользователя
-     */
-    UserResponseDto getProfile(Long userId);
-
-    /**
      * Поиск пользователей по фильтрам и пагинации.
      *
      * @param criteria параметры фильтрации

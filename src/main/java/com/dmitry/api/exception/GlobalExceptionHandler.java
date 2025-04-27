@@ -1,6 +1,9 @@
 package com.dmitry.api.exception;
 
 import com.dmitry.api.error.ErrorResponse;
+import com.dmitry.exception.DuplicateEmailException;
+import com.dmitry.exception.DuplicatePhoneException;
+import com.dmitry.exception.ForbiddenOperationException;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
@@ -8,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -28,6 +32,10 @@ import java.util.Map;
  *     <li>{@link ConstraintViolationException} — ошибка валидации параметров запроса (@RequestParam, @PathVariable)</li>
  *     <li>{@link EntityNotFoundException} — сущность не найдена в БД</li>
  *     <li>{@link IllegalArgumentException} — ошибка бизнес-логики (например, запрет перевода себе)</li>
+ *     <li>{@link MissingServletRequestParameterException} - отсутствие обязательных параметров</li>
+ *     <li>{@link DuplicateEmailException} - обработчик email</li>
+ *     <li>{@link DuplicatePhoneException} - обработчик phone</li>
+ *     <li>{@link ForbiddenOperationException} - запрещенная операция</li>
  * </ul>
  */
 @Slf4j
@@ -63,5 +71,32 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> handleIllegalArgumentException(IllegalArgumentException ex) {
         log.warn("Ошибка бизнес-логики: {}", ex.getMessage());
         return ResponseEntity.badRequest().body(new ErrorResponse(ex.getMessage()));
+    }
+
+    @ExceptionHandler(MissingServletRequestParameterException.class)
+    public ResponseEntity<ErrorResponse> handleMissingServletRequestParameterException(MissingServletRequestParameterException ex) {
+        log.warn("Отсутствует обязательный параметр запроса: {}", ex.getParameterName());
+        return ResponseEntity.badRequest().body(new ErrorResponse("Отсутствует обязательный параметр запроса: " + ex.getParameterName()));
+    }
+
+    @ExceptionHandler(DuplicateEmailException.class)
+    public ResponseEntity<ErrorResponse> handleDuplicateEmailException(DuplicateEmailException ex) {
+        log.warn("Email уже существует: {}", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.CONFLICT)
+                .body(new ErrorResponse(ex.getMessage()));
+    }
+
+    @ExceptionHandler(DuplicatePhoneException.class)
+    public ResponseEntity<ErrorResponse> handleDuplicatePhoneException(DuplicatePhoneException ex) {
+        log.warn("Телефон уже существует: {}", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.CONFLICT)
+                .body(new ErrorResponse(ex.getMessage()));
+    }
+
+    @ExceptionHandler(ForbiddenOperationException.class)
+    public ResponseEntity<ErrorResponse> handleForbiddenOperationException(ForbiddenOperationException ex) {
+        log.warn("Запрещенная операция: {}", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                .body(new ErrorResponse(ex.getMessage()));
     }
 }

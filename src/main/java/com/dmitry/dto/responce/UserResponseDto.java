@@ -28,7 +28,7 @@ public class UserResponseDto {
 
     @Schema(description = "Дата рождения пользователя")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy")
-    private LocalDate dateOfBirth;
+    private LocalDate dateOfBirthAfter;
 
     @Schema(description = "Список email-адресов пользователя")
     private Set<EmailResponseDto> emails;
