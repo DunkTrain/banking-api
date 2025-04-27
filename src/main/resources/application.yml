@@ -3,9 +3,9 @@ spring:
     name: banking-api
 
   datasource:
-    url: jdbc:postgresql://localhost:5433/banking
-    username: postgres
-    password: postgres
+    url: jdbc:postgresql://${DATASOURCE_HOST:localhost}:5433/${POSTGRES_DB:banking}
+    username: ${POSTGRES_USER:postgres}
+    password: ${POSTGRES_PASSWORD:postgres}
     driver-class-name: org.postgresql.Driver
 
   jpa:
@@ -35,3 +35,13 @@ jwt:
 
   # Команда генерации (Linux):
   # openssl rand -base64 32
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+  info:
+    title: Banking API
+    description: REST API для управления пользователями, аккаунтами и переводами
+    version: 1.0.0
