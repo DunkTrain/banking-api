@@ -9,6 +9,7 @@ import com.dmitry.service.TransferService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -19,6 +20,7 @@ import java.util.Objects;
  * Реализация {@link TransferService}
  * Обеспечивает безопасный перевод средств между пользователями с валидацией данных и сохранением истории операций.
  */
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class TransferServiceImpl implements TransferService {
@@ -34,6 +36,8 @@ public class TransferServiceImpl implements TransferService {
         AccountPair accounts = loadAccountsSafely(fromUserId, request.toUserId());
         processTransfer(accounts, request.amount());
         saveTransferHistory(fromUserId, request.toUserId(), request.amount());
+
+        log.info("Перевод выполнен: отправитель {}, получатель {}, сумма {}", fromUserId, request.toUserId(), request.amount());
     }
 
     /**
@@ -44,15 +48,18 @@ public class TransferServiceImpl implements TransferService {
      */
     private void validateTransferRequest(Long fromUserId, TransferRequestDto request) {
         if (request.toUserId() == null) {
+            log.warn("Попытка перевода без указания получателя. Отправитель: {}", fromUserId);
             throw new IllegalArgumentException("ID получателя не может быть пустым");
         }
 
         if (fromUserId.equals(request.toUserId())) {
+            log.warn("Попытка перевода самому себе. Пользователь ID: {}", fromUserId);
             throw new IllegalArgumentException("Нельзя перевести деньги самому себе");
         }
 
         BigDecimal amount = request.amount();
         if (amount == null || amount.compareTo(BigDecimal.ZERO) <= 0) {
+            log.warn("Попытка перевести некорректную сумму: {}. Отправитель: {}", amount, fromUserId);
             throw new IllegalArgumentException("Сумма перевода должна быть больше нуля");
         }
     }
@@ -71,16 +78,22 @@ public class TransferServiceImpl implements TransferService {
         Long secondId = Math.max(fromUserId, toUserId);
 
         Account firstAccount = accountRepository.findByUserId(firstId)
-                .orElseThrow(() -> new EntityNotFoundException(
-                        Objects.equals(firstId, fromUserId)
-                                ? "Счет отправителя не найден"
-                                : "Счет получателя не найден"));
+                .orElseThrow(() -> {
+                    log.warn("Ошибка загрузки отправителя ID: {}", firstId);
+                    return new EntityNotFoundException(
+                            Objects.equals(firstId, fromUserId)
+                                    ? "Счёт отправителя не найден"
+                                    : "Счёт получателя не найден");
+                });
 
         Account secondAccount = accountRepository.findByUserId(secondId)
-                .orElseThrow(() -> new EntityNotFoundException(
-                        Objects.equals(secondId, fromUserId)
-                                ? "Счет отправителя не найден"
-                                : "Счет получателя не найден"));
+                .orElseThrow(() -> {
+                    log.warn("Ошибка загрузки получателя ID: {}", secondId);
+                    return new EntityNotFoundException(
+                            Objects.equals(secondId, fromUserId)
+                                    ? "Счёт отправителя не найден"
+                                    : "Счёт получателя не найден");
+                });
 
         // Определяем какой счет является отправителем, а какой получателем
         Account fromAccount = Objects.equals(fromUserId, firstAccount.getUser().getId())
@@ -105,6 +118,8 @@ public class TransferServiceImpl implements TransferService {
         Account toAccount = accounts.to();
 
         if (fromAccount.getBalance().compareTo(amount) < 0) {
+            log.warn("Недостаточно средств для перевода. Отправитель ID: {}, Баланс: {}, Запрошено: {}",
+                    fromAccount.getUser().getId(), fromAccount.getBalance(), amount);
             throw new IllegalArgumentException("Недостаточно средств для перевода");
         }
 

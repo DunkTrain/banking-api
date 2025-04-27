@@ -3,6 +3,7 @@ package com.dmitry.scheduler;
 import com.dmitry.entity.Account;
 import com.dmitry.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import net.javacrumbs.shedlock.spring.annotation.SchedulerLock;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -18,6 +19,7 @@ import java.util.stream.Stream;
  * не превышая ограничение в 207% от начального депозита.
  * Использует ShedLock для обеспечения запуска только одним инстансом приложения.
  */
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class InterestScheduler {
@@ -39,23 +41,33 @@ public class InterestScheduler {
     @SchedulerLock(name = "accrueInterest", lockAtMostFor = "PT30S", lockAtLeastFor = "PT29S")
     @Transactional
     public void accrueInterest() {
+        log.info("Начало начисления процентов на балансы аккаунтов...");
+
         BigDecimal maxMultiplier = properties.getMaxMultiplier();
         BigDecimal percent = BigDecimal.ONE.add(properties.getPercent());
 
         try (Stream<Account> stream = accountRepository.streamAllForAccrual()) {
             stream.forEach(account -> {
-                BigDecimal current = account.getBalance();
-                BigDecimal initial = account.getInitBalance();
-                BigDecimal max = initial.multiply(maxMultiplier);
-                BigDecimal updated = current.multiply(percent);
+                try {
+                    BigDecimal current = account.getBalance();
+                    BigDecimal initial = account.getInitBalance();
+                    BigDecimal max = initial.multiply(maxMultiplier);
+                    BigDecimal updated = current.multiply(percent);
 
-                if (updated.compareTo(max) > 0) {
-                    updated = max;
+                    if (updated.compareTo(max) > 0) {
+                        updated = max;
+                    }
+
+                    account.setBalance(updated);
+                    accountRepository.save(account);
+
+                    log.debug("Аккаунт ID {}: баланс обновлен до {}", account.getId(), updated);
+                } catch (Exception e) {
+                    log.error("Ошибка начисления процентов для аккаунта ID {}", account.getId(), e);
                 }
-
-                account.setBalance(updated);
-                accountRepository.save(account);
             });
         }
+
+        log.info("Завершено начисление процентов на балансы аккаунтов");
     }
 }
