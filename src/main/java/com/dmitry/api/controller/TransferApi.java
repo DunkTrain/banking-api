@@ -2,8 +2,6 @@ package com.dmitry.api.controller;
 
 import com.dmitry.dto.request.TransferRequestDto;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -17,9 +15,6 @@ public interface TransferApi {
 
     @PostMapping
     @Operation(summary = "Перевести средства другому пользователю")
-    @Parameters({
-            @Parameter(name = "fromUserId", description = "ID пользователя, отправляющего средства", example = "1")
-    })
     @ApiResponses({
             @ApiResponse(responseCode = "201", description = "Перевод выполнен успешно"),
             @ApiResponse(responseCode = "400", description = "Неверные параметры перевода"),
@@ -28,7 +23,6 @@ public interface TransferApi {
             @ApiResponse(responseCode = "409", description = "Недостаточно средств на счете")
     })
     ResponseEntity<Void> transfer(
-            @RequestParam Long fromUserId,
             @RequestBody @Valid TransferRequestDto requestDto
     );
 }

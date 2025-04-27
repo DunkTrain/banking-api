@@ -47,7 +47,7 @@ public class PhoneServiceImpl implements PhoneService {
                 .orElseThrow(() -> new EntityNotFoundException("Телефон не найден"));
 
         if(!phoneEntity.getUser().getId().equals(userId)) {
-            throw new ForbiddenOperationException("Вы не можете редактировать чужой email");
+            throw new ForbiddenOperationException("Вы не можете редактировать чужой телефон");
         }
 
         if (phoneRepository.existsByPhone(newPhone)) {

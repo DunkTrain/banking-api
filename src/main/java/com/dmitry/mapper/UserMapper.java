@@ -28,7 +28,7 @@ public class UserMapper {
         UserResponseDto dto = new UserResponseDto();
         dto.setId(user.getId());
         dto.setName(user.getName());
-        dto.setDateOfBirth(user.getDateOfBirth());
+        dto.setDateOfBirthAfter(user.getDateOfBirth());
 
         dto.setEmails(
                 user.getEmails().stream()
